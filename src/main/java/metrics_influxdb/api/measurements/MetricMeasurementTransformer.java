@@ -3,6 +3,8 @@ package metrics_influxdb.api.measurements;
 import java.util.Collections;
 import java.util.Map;
 
+import metrics_influxdb.measurements.Measure;
+
 public interface MetricMeasurementTransformer {
 	public Map<String, String> tags(String metricName);
 
@@ -19,4 +21,8 @@ public interface MetricMeasurementTransformer {
 			return metricName;
 		}
 	};
+
+	default Measure measurement(Measure measure) {
+		return measure;
+	}
 }

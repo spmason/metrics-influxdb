@@ -99,7 +99,7 @@ public class MeasurementReporter extends ScheduledReporter{
 				.addValue("mean-minute", convertRate(t.getMeanRate()))
 				.addValue("run-count", t.getCount());
 
-		return measure;
+		return transformer.measurement(measure);
 	}
 
 	private Measure fromMeter(String metricName, Meter mt, long timestamp) {
@@ -114,7 +114,7 @@ public class MeasurementReporter extends ScheduledReporter{
 				.addValue("five-minute", convertRate(mt.getFiveMinuteRate()))
 				.addValue("fifteen-minute", convertRate(mt.getFifteenMinuteRate()))
 				.addValue("mean-minute", convertRate(mt.getMeanRate()));
-		return measure;
+		return transformer.measurement(measure);
 	}
 
 	private Measure fromHistogram(String metricName, Histogram h, long timestamp) {
@@ -137,7 +137,7 @@ public class MeasurementReporter extends ScheduledReporter{
 				.addValue("99-percentile", snapshot.get99thPercentile())
 				.addValue("999-percentile", snapshot.get999thPercentile())
 				.addValue("run-count", h.getCount());
-		return measure;
+		return transformer.measurement(measure);
 	}
 
 	private Measure fromCounter(String metricName, Counter c, long timestamp) {
@@ -149,7 +149,7 @@ public class MeasurementReporter extends ScheduledReporter{
 				.addTag(tags)
 				.addValue("count", c.getCount());
 
-		return measure;
+		return transformer.measurement(measure);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -188,6 +188,6 @@ public class MeasurementReporter extends ScheduledReporter{
 			measure.addValue("value", value);
 		}
 
-		return measure;
+		return transformer.measurement(measure);
 	}
 }
